@@ -1,4 +1,4 @@
-
+# This is just the template
 
 import smtplib
 from email.mime.multipart import MIMEMultipart
