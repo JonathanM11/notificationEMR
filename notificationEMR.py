@@ -43,3 +43,4 @@ if __name__ == "__main__":
     password = "your_email_password"
 
     send_email(sender, receiver, subject, body, smtp_server, port, login, password)
+
