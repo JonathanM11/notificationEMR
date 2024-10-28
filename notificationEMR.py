@@ -9,7 +9,7 @@ def send_email(receiver_email, subject, body, smtp_server, port):
     try:
         # Create the email header
         msg = MIMEMultipart()
-        msg['From'] = "EMRnotifyDemo@outlook.com"
+        msg['From'] = "emrnotifydemo@gmail.com"
         msg['To'] = receiver_email
         msg['Subject'] = subject
 
@@ -20,10 +20,10 @@ def send_email(receiver_email, subject, body, smtp_server, port):
         server = smtplib.SMTP(smtp_server, port)
         server.ehlo()
         server.starttls()  # Upgrade to secure connection
-        server.login("EMRnotifyDemo@outlook.com", "loopsolutions1122")
+        server.login("emrnotifydemo@gmail.com", "lrqj dlpz luub sots")
 
         # Send the email
-        server.sendmail("EMRnotifyDemo@outlook.com", receiver_email, msg.as_string())
+        server.sendmail("emrnotifydemo@gmail.com", receiver_email, msg.as_string())
 
         # Terminate the SMTP session and close the connection
         server.quit()
@@ -37,7 +37,7 @@ def send_email(receiver_email, subject, body, smtp_server, port):
 receiver = "jonathan.manda11@gmail.com"
 subject1 = "Test Email"
 body1 = "This is a test email sent using Python."
-emailServer = "smtp-mail.outlook.com"
+emailServer = "smtp.gmail.com"
 port1 = 587
 
 
