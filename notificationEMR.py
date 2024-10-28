@@ -4,11 +4,12 @@ import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
-def send_email(sender_email, receiver_email, subject, body, smtp_server, port, login, password):
+
+def send_email(receiver_email, subject, body, smtp_server, port):
     try:
         # Create the email header
         msg = MIMEMultipart()
-        msg['From'] = sender_email
+        msg['From'] = "EMRnotifyDemo@outlook.com"
         msg['To'] = receiver_email
         msg['Subject'] = subject
 
@@ -17,11 +18,12 @@ def send_email(sender_email, receiver_email, subject, body, smtp_server, port, l
 
         # Establish connection with the SMTP server
         server = smtplib.SMTP(smtp_server, port)
+        server.ehlo()
         server.starttls()  # Upgrade to secure connection
-        server.login(login, password)
+        server.login("EMRnotifyDemo@outlook.com", "loopsolutions1122")
 
         # Send the email
-        server.sendmail(sender_email, receiver_email, msg.as_string())
+        server.sendmail("EMRnotifyDemo@outlook.com", receiver_email, msg.as_string())
 
         # Terminate the SMTP session and close the connection
         server.quit()
@@ -31,15 +33,13 @@ def send_email(sender_email, receiver_email, subject, body, smtp_server, port, l
     except Exception as e:
         print(f"Failed to send email. Error: {e}")
 
-# Example usage
-if __name__ == "__main__":
-    sender = "your_email@gmail.com"
-    receiver = "recipient_email@gmail.com"
-    subject = "Test Email"
-    body = "This is a test email sent using Python."
-    smtp_server = "smtp.gmail.com"
-    port = 587
-    login = "your_email@gmail.com"
-    password = "your_email_password"
+# Example email
+receiver = "jonathan.manda11@gmail.com"
+subject1 = "Test Email"
+body1 = "This is a test email sent using Python."
+emailServer = "smtp-mail.outlook.com"
+port1 = 587
 
-    send_email(sender, receiver, subject, body, smtp_server, port, login, password)
+
+
+send_email("jonathan.manda11@gmail.com", subject1, body1, emailServer, port1)
