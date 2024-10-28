@@ -35,11 +35,11 @@ def send_email(receiver_email, subject, body, smtp_server, port):
 
 # Example email
 receiver = "jonathan.manda11@gmail.com"
-subject1 = "Test Email"
-body1 = "This is a test email sent using Python."
+emailSubject = "Test Email"
+emailBody = "This is a test email sent using Python."
 emailServer = "smtp.gmail.com"
-port1 = 587
+emailPort = 587
 
 
 
-send_email("jonathan.manda11@gmail.com", subject1, body1, emailServer, port1)
+send_email(receiver, emailSubject, emailBody, emailServer, emailPort)
