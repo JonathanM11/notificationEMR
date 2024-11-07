@@ -1,5 +1,6 @@
 
 import smtplib
+from datetime import datetime
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import requests
@@ -35,7 +36,7 @@ def createLink(user, hospital, hlink):
 
     # Link data to be created
     data = {
-        "api_key" : "yxKzDSVmCaU/TRZMCaFdjw==",
+        "api_key": "yxKzDSVmCaU/TRZMCaFdjw==",
         "workspace_id": 244134,
         "enabled": True,
         "block_bots": False,
@@ -54,6 +55,38 @@ def createLink(user, hospital, hlink):
 
     except requests.exceptions.RequestException as e:
         print(f"An error occurred: {e}")
+
+
+def lastClick(user, hospital, num):
+    url = f"https://app.linklyhq.com/api/v1/workspace/244134/clicks"
+    # Add API key and parameters
+    params = {
+        "api_key": "yxKzDSVmCaU/TRZMCaFdjw==",
+        "link_id": num,
+        "start": "2000-01-01",  # Set a wide start range to include all clicks
+        "end": datetime.now().strftime("%Y-%m-%d")  # End date is today
+    }
+
+    headers = {
+        "Content-Type": "application/json",
+        "cache-control": "no-cache"
+    }
+
+    # Make the GET request
+    response = requests.get(url, headers=headers, params=params)
+
+    # Check the response
+    if response.status_code == 200:
+        clicks = response.json()
+        if clicks:
+            # Assuming the list is ordered by timestamp, with most recent first
+            last_click = clicks[0]  # Get the most recent click
+            last_click_time = last_click.get("timestamp")  # Assuming 'timestamp' is the key for click time
+            print("Last click time:", last_click_time)
+        else:
+            print("No clicks recorded for this link yet.")
+    else:
+        print("Failed to retrieve link clicks:", response.status_code, response.text)
 
 
 def send_email(receiver_email, subject, body, smtp_server, port):
@@ -92,5 +125,6 @@ emailServer = "smtp.gmail.com"
 emailPort = 587
 
 #createLink('Jonathan', 'GitHub', 'https://github.com/')
+#lastClick('Jonathan', 'GitHub','20oCM')
 #pullClickUp()
 #send_email(receiver, emailSubject, emailBody, emailServer, emailPort)
